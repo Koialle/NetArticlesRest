@@ -7,6 +7,7 @@ import dal.Auteur;
 import dal.Categorie;
 import dal.Client;
 import dal.Domaine;
+import dal.Redige;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -88,6 +89,22 @@ public class NetArticlesWS {
             GenericEntity<List<Auteur>> auteurs = new GenericEntity<List<Auteur>>(auteurF.getAuteursByArticle(id)) {
             };
             response = Response.status(Response.Status.OK).entity(auteurs).header("Content-Type", "application/json; charset=UTF-8").build();
+        } catch (Exception ex) {
+            JsonObject retour = Json.createObjectBuilder().add("message", Utility.getExceptionCause(ex)).build();
+            response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(retour).build();
+        }
+        return response;
+    }
+    
+    @GET
+    @Path("auteur/redige/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getArticlesFromAuteur(@PathParam("id") Integer id) {
+        Response response = null;
+        try {
+            GenericEntity<List<Redige>> rediges = new GenericEntity<List<Redige>>(articleF.getArticlesByAuteur(id)) {
+            };
+            response = Response.status(Response.Status.OK).entity(rediges).header("Content-Type", "application/json; charset=UTF-8").build();
         } catch (Exception ex) {
             JsonObject retour = Json.createObjectBuilder().add("message", Utility.getExceptionCause(ex)).build();
             response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(retour).build();

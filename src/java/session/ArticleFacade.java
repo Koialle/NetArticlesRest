@@ -1,6 +1,8 @@
 package session;
 
 import dal.Article;
+import dal.Redige;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -50,5 +52,19 @@ public class ArticleFacade {
         Query q = em.createNamedQuery("Article.findByDomaine");
         q.setParameter("idDomaine", id_domaine);
         return q.getResultList();
+    }
+    
+    /**
+     * Récupère tous les articles d'un auteur
+     * dont on fourni l'ID
+     * @param idAuteur : Id de l'auteur dont on veut les articles
+     * @return Collection de Article 
+     * throws Exception 
+     */
+    public List<Redige> getArticlesByAuteur(Integer idAuteur) throws Exception {
+        Query requete = em.createNamedQuery("Redige.findByIdAuteur");
+        requete.setParameter("idAuteur", idAuteur);
+        List<Redige> rediges = requete.getResultList();
+        return rediges;
     }
 }
