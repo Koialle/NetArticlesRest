@@ -38,6 +38,22 @@ public class AcheteFacade {
     }
     
     /**
+     * Lister tous les achats relatifs à un article
+     * @param idArticle identifiant de l'article dont on souhaite récupérer les achats
+     * @return Liste d'Achete
+     * @throws Exception 
+     */
+    public List<Achete> listerByArticle(int idArticle) throws Exception {
+        Query q = em.createNamedQuery("Achete.findByIdArticle");
+        q.setParameter("idArticle", idArticle);
+        List<Achete> achats = q.getResultList();
+        for(Achete a : achats) {
+            em.refresh(a);
+        }
+        return achats;
+    }
+    
+    /**
      * Record a purchase coming from a client
      * @param a Achete
      * @throws Exception 

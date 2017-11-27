@@ -190,6 +190,22 @@ public class NetArticlesWS {
         }
         return response;
     }
+    
+    @GET
+    @Path("achat/byArticle/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAchatsByArticle(@PathParam("id") Integer id) {
+        Response response = null;
+        try {
+            GenericEntity<List<Achete>> achats = new GenericEntity<List<Achete>>(acheteF.listerByArticle(id)) {
+            };
+            response = Response.status(Response.Status.OK).entity(achats).header("Content-Type", "application/json; charset=UTF-8").build();
+        } catch (Exception ex) {
+            JsonObject retour = Json.createObjectBuilder().add("message", Utility.getExceptionCause(ex)).build();
+            response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(retour).build();
+        }
+        return response;
+    }
 
     @GET
     @Path("article/{id}")
