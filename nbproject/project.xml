@@ -14,7 +14,10 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.jandex-1.2.1.Final.jar}</file>
+                    <file>${file.reference.jandex-2.0.1.Final.jar}</file>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.jandex-2.0.1.Final.jar-1}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
